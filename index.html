@@ -3,21 +3,14 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#000000">
   <title>파라파라나 춰야겠다</title>
   <style>
     * { box-sizing: border-box; }
-    html, body { margin: 0; width: 100%; height: 100%; background: #000; }
-    body { color: #fff; font-family: system-ui, -apple-system, "Malgun Gothic", sans-serif; }
-    #screen {
-      position: fixed; inset: 0; display: flex; align-items: center;
-      justify-content: center; overflow: hidden; background: #000;
-    }
-    #message {
-      margin: 24px; text-align: center; font-size: clamp(28px, 5vw, 64px);
-      line-height: 1.25; font-weight: 800; letter-spacing: .03em;
-    }
-    #animation { display: none; width: 100%; height: 100%; object-fit: contain; }
+    html, body { margin: 0; width: 100%; height: 100%; background: #000; color: #fff; }
+    body { font-family: system-ui, -apple-system, "Malgun Gothic", sans-serif; }
+    #screen { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; overflow: hidden; background: #000; }
+    #message { margin: 24px; text-align: center; font-size: clamp(28px, 5vw, 64px); font-weight: 800; }
+    #animation { display: none; width: 100%; height: 100%; max-width: 100%; max-height: 100%; object-fit: contain; }
     #screen.playing #message { display: none; }
     #screen.playing #animation { display: block; }
   </style>
@@ -25,13 +18,17 @@
 <body>
   <main id="screen">
     <div id="message">파라파라나 춰야겠다</div>
-    <img id="animation" src="parapara.webp" alt="파라파라 애니메이션">
+    <img id="animation" src="./parapara.webp" alt="파라파라 애니메이션">
   </main>
   <script>
-    window.addEventListener('DOMContentLoaded', () => {
-      window.setTimeout(() => {
-        document.getElementById('screen').classList.add('playing');
-      }, 2600);
+    window.addEventListener("DOMContentLoaded", () => {
+      const screen = document.getElementById("screen");
+      const animation = document.getElementById("animation");
+      animation.addEventListener("error", () => {
+        document.getElementById("message").textContent =
+          "parapara.webp 파일을 찾을 수 없어요. GitHub에 파일을 올렸는지 확인해 주세요.";
+      });
+      window.setTimeout(() => screen.classList.add("playing"), 2600);
     });
   </script>
 </body>
